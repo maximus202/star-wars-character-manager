@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 namespace App\Http\Integrations;
 
 use Illuminate\Support\Facades\Http;
@@ -10,24 +10,24 @@ use Illuminate\Support\Facades\Http;
  * 
  * @package App\Http\Integrations
  */
-class SwaApi {
+class SwaApi extends Integration {
     /**
      * This holds the base URL for the API.
      * 
      * @var string $baseUrl
      */
-    protected string $baseUrl = 'https://swapi.dev/api/people/';
+    protected static string $baseUrl = 'https://swapi.dev/api/people/';
 
     /**
      * This will fetch data from the API.
      * 
      * @param string $search
-     * @return object|bool
+     * @return array|bool
      */
-    public function fetch(string $search): object|bool
+    public function fetch(string $search = ''): array|bool
     {
         $searchParam = self::createSearchParam($search);
-        $url = self::$baseUrl . $searchParam;
+        $url = static::$baseUrl . $searchParam;
         $response = Http::get($url);
         if ($response->successful()) {
             return $response->json();
