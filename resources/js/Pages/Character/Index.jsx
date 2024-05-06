@@ -3,7 +3,6 @@ import TextInput from "@/Components/TextInput";
 import { Link, router } from "@inertiajs/react";
 import React from "react";
 
-
 export default function Index({auth, characters, queryParams = null}) {
     /**
      * This is used to store the query parameters for the search
