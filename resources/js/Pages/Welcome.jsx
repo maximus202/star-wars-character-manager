@@ -1,3 +1,4 @@
+import NavLink from '@/Components/NavLink';
 import { Link, Head } from '@inertiajs/react';
 
 export default function Welcome({ people, auth, laravelVersion, phpVersion }) {
@@ -7,11 +8,40 @@ export default function Welcome({ people, auth, laravelVersion, phpVersion }) {
         document.getElementById('docs-card-content')?.classList.add('!flex-row');
         document.getElementById('background')?.classList.add('!hidden');
     };
-
+    console.log(people)
     return (
         <>
             <Head title="Welcome" />
-            <div className="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
+            {/* <NavLink href={route('characters')} active={route().current('dashboard')}>
+                Characters
+            </NavLink> */}
+            {/* <NavLink href={route('favorites')} active={route().current('dashboard')}>
+                Favorites
+            </NavLink> */}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Image</th>
+                        <th>Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {people.map((person) => (
+                        <tr key={person.id}>
+                            <td>
+                                <img src={person.image
+                                    ? person.image
+                                    : 'https://via.placeholder.com/150'}
+                                    alt={person.name}
+                                    className="h-10 w-10 rounded-full"
+                                />
+                            </td>
+                            <td>{person.name}</td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+            {/* <div className="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
                 <img
                     id="background"
                     className="absolute -left-20 top-0 max-w-[877px]"
@@ -333,7 +363,7 @@ export default function Welcome({ people, auth, laravelVersion, phpVersion }) {
                         </footer>
                     </div>
                 </div>
-            </div>
+            </div> */}
         </>
     );
 }
