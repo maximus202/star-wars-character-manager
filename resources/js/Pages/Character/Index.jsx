@@ -1,6 +1,7 @@
 import NavLink from "@/Components/NavLink";
 import TextInput from "@/Components/TextInput";
 import { Link, router } from "@inertiajs/react";
+import React from "react";
 
 
 export default function Index({auth, characters, queryParams = null}) {
@@ -34,6 +35,12 @@ export default function Index({auth, characters, queryParams = null}) {
         searchFieldChanged(name, e.target.value);
     };
 
+    /**
+     * **STILL TO DO**
+     * This function is used to store a favorite character.
+     * 
+     * @param {Event} e 
+     */
     const store = (e) => {
         const {data, setData, post, errors, reset} = useForm({
             character_id: '',
@@ -48,7 +55,7 @@ export default function Index({auth, characters, queryParams = null}) {
             post(route("favorites.store"));
         };
     };
-
+    
     return (
         <>
             <TextInput 
@@ -60,9 +67,9 @@ export default function Index({auth, characters, queryParams = null}) {
             <NavLink href={route('characters.index')} active={route().current('characters.index')}>
             Characters
             </NavLink>
-            {/* <NavLink href={route('favorites')} active={route().current('dashboard')}>
+            <NavLink>
                 Favorites
-            </NavLink> */}
+            </NavLink>
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 border-b-2 border-gray-500">
                     <tr className="text-nowrap">
@@ -74,18 +81,20 @@ export default function Index({auth, characters, queryParams = null}) {
                 </thead>
                 <tbody>
                     {characters.results.map(character => (
-                        <tr key={character.id}>
-                            <td className="px-3 py-3">{character.name}</td>
-                            <td className="px-3 py-3">{character.gender}</td>
-                            <td className="px-3 py-3">{character.birth_year}</td>
-                            <td className="px-3 py-3">
-                                <Link
-                                    className="bg-emerald-500 py-1 px-3 text-white rounded shadow transition-all" 
-                                    href={route('favorites.store')}>
-                                    Favorite
-                                </Link>
-                            </td>
-                        </tr>
+                        <React.Fragment key={character.url}>
+                            <tr>
+                                <td className="px-3 py-3">{character.name}</td>
+                                <td className="px-3 py-3">{character.gender}</td>
+                                <td className="px-3 py-3">{character.birth_year}</td>
+                                <td className="px-3 py-3">
+                                    <Link
+                                        className="bg-emerald-500 py-1 px-3 text-white rounded shadow transition-all" 
+                                        href={route('favorites.store')}>
+                                        Favorite
+                                    </Link>
+                                </td>
+                            </tr>
+                        </React.Fragment>
                     ))}
                 </tbody>
             </table>
