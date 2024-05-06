@@ -1,6 +1,6 @@
 import NavLink from "@/Components/NavLink";
 import TextInput from "@/Components/TextInput";
-import { router } from "@inertiajs/react";
+import { Link, router } from "@inertiajs/react";
 
 
 export default function Index({auth, characters, queryParams = null}) {
@@ -34,6 +34,21 @@ export default function Index({auth, characters, queryParams = null}) {
         searchFieldChanged(name, e.target.value);
     };
 
+    const store = (e) => {
+        const {data, setData, post, errors, reset} = useForm({
+            character_id: '',
+            name: '',
+            character_url: '',
+            gender: '',
+            birth_year: ''
+        });
+
+        const onSubmit = (e) => {
+            e.preventDefault();
+            post(route("favorites.store"));
+        };
+    };
+
     return (
         <>
             <TextInput 
@@ -64,8 +79,11 @@ export default function Index({auth, characters, queryParams = null}) {
                             <td className="px-3 py-3">{character.gender}</td>
                             <td className="px-3 py-3">{character.birth_year}</td>
                             <td className="px-3 py-3">
-                                <a href={`/characters/${character.id}`}>View</a>
-                                <a href={`/characters/${character.id}/edit`}>Edit</a>
+                                <Link
+                                    className="bg-emerald-500 py-1 px-3 text-white rounded shadow transition-all" 
+                                    href={route('favorites.store')}>
+                                    Favorite
+                                </Link>
                             </td>
                         </tr>
                     ))}

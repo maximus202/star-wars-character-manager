@@ -11,7 +11,7 @@ Route::redirect('/', '/characters');
 
 Route::get('/characters', [CharacterController::class, 'index'])->name('characters.index');
 
-Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.index');
+Route::get('/favorites', [FavoriteController::class, 'index'])->name('favorites.store');
 
 // Route::get('/', function () {
 //     return Inertia::render('Welcome', [
